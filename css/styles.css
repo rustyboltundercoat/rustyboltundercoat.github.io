@@ -1,0 +1,818 @@
+/* --- CSS STYLES --- */
+:root {
+    --bg-dark: #0f1115;
+    --card-bg: #1a1d24;
+    --accent-main: #359dff;
+    --accent-secondary: #00c3ff;
+    --text-main: #e0e0e0;
+    --text-muted: #8892b0;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    scroll-behavior: smooth; 
+}
+
+body { 
+    font-family: 'Roboto', sans-serif; 
+    background-color: var(--bg-dark); 
+    color: var(--text-main); 
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Buttons */
+.btn {
+    display: inline-block; 
+    padding: 15px 35px; 
+    background: var(--accent-main); 
+    color: white; 
+    text-decoration: none; 
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    border: none; 
+    cursor: pointer; 
+    transition: all 0.3s ease;
+    clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(53, 157, 255, 0.4); }
+
+/* Navigation (Glassmorphism) */
+nav {
+    position: fixed; 
+    top: 0; left: 0; width: 100%;
+    padding: 20px 0;
+    background: rgba(15, 17, 21, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.nav-content { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.8rem; font-weight: 700; color: white; }
+.logo span { color: var(--accent-main); }
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+}
+.nav-links a::after {
+    content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+    background-color: var(--accent-secondary); transition: width 0.3s;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* --- UTILITIES --- */
+.section-title { text-align: center; margin-bottom: 60px; font-size: 2.5rem; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
+.section-title::after { content: ''; width: 80px; height: 4px; background: var(--accent-secondary); position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); }
+
+/* --- HERO SECTION (Parallax) --- */
+header.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-attachment: fixed; 
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content { max-width: 600px; z-index: 2; opacity: 0; transform: translateY(30px); transition: all 1s ease; } 
+.hero-content h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+.hero-content p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px; }
+
+/* --- SERVICES --- */
+section { padding: 100px 0; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.service-card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+}
+.service-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15); border-color: var(--accent-secondary); }
+.service-icon { font-size: 3rem; color: var(--accent-main); margin-bottom: 20px; }
+.service-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+.service-card p { color: var(--text-muted); line-height: 1.6; }
+
+/* --- GALLERY (Horizontal Scroll) --- */
+#work { background: #0c0e12; }
+.gallery-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding-bottom: 40px;
+    scrollbar-width: none; 
+}
+.gallery-container::-webkit-scrollbar { display: none; } 
+
+.gallery-item {
+    min-width: 350px;
+    height: 280px;
+    scroll-snap-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gallery-item:hover img { transform: scale(1.1); }
+
+.gallery-overlay {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px;
+    background: linear-gradient(to top, black, transparent);
+    opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+/* --- CONTACT SECTION --- */
+
+#contact {
+    position: relative;
+    padding: 100px 0;
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 70px;
+    align-items: center;
+}
+
+/* Contact Information */
+
+.contact-info {
+    min-width: 0;
+}
+
+.contact-eyebrow {
+    display: inline-block;
+    color: var(--accent-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.contact-info h2 {
+    font-size: 2.8rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.contact-description {
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 1rem;
+    max-width: 500px;
+    margin-bottom: 40px;
+}
+
+/* Contact Details */
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateX(6px);
+    border-color: var(--accent-main);
+    background: rgba(53, 157, 255, 0.06);
+}
+
+.contact-icon {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(53, 157, 255, 0.1);
+    border-radius: 10px;
+    color: var(--accent-secondary);
+    font-size: 1.1rem;
+}
+
+.contact-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-item-text strong {
+    color: white;
+    font-size: 0.9rem;
+}
+
+.contact-item-text span {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+
+/* Contact Form */
+
+.contact-form {
+    background: #15181e;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px;
+    background: #0f1115;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--accent-main);
+    box-shadow: 0 0 10px rgba(53, 157, 255, 0.2);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+
+/* Success / Error */
+
+.form-success {
+    text-align: center;
+    padding: 25px 10px;
+}
+
+.form-success h3 {
+    color: var(--accent-secondary);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.form-success p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.form-error {
+    text-align: center;
+    padding: 15px 10px;
+    color: #ff5c5c;
+}
+
+/* --- FOOTER --- */
+footer { text-align: center; padding: 40px; background: #050608; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.1); }
+
+/* =========================================================
+   HAMBURGER MENU - DESKTOP DEFAULTS
+   ========================================================= */
+
+/*
+ * These MUST be outside the mobile media query.
+ * This keeps the hamburger and mobile menu completely
+ * hidden on desktop.
+ */
+
+.menu-toggle {
+    display: none;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE EXPERIENCE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /* -----------------------------------------------------
+       GENERAL
+       ----------------------------------------------------- */
+
+    section {
+        padding: 70px 0;
+    }
+
+    .container {
+        padding: 0 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       NAVIGATION
+       ----------------------------------------------------- */
+
+    /*
+     * Hide the normal desktop navigation.
+     */
+    .nav-links {
+        display: none;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    /*
+     * Make sure the navigation content has enough
+     * height for the hamburger button.
+     */
+    .nav-content {
+        min-height: 44px;
+    }
+
+
+    /* -----------------------------------------------------
+       HAMBURGER BUTTON
+       ----------------------------------------------------- */
+
+    .menu-toggle {
+        display: flex;
+
+        width: 44px;
+        height: 44px;
+
+        padding: 8px;
+
+        background: transparent;
+        border: none;
+
+        cursor: pointer;
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        gap: 5px;
+
+        z-index: 1100;
+    }
+
+    .menu-toggle span {
+        display: block;
+
+        width: 25px;
+        height: 2px;
+
+        background: var(--text-main);
+
+        border-radius: 2px;
+
+        transition: all 0.3s ease;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE NAVIGATION
+       ----------------------------------------------------- */
+
+    .mobile-nav {
+        display: flex;
+
+        position: absolute;
+
+        top: 100%;
+        left: 0;
+
+        width: 100%;
+
+        flex-direction: column;
+
+        background: rgba(15, 17, 21, 0.98);
+
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        /*
+         * Hidden until the hamburger is clicked.
+         */
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-10px);
+
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease,
+            visibility 0.3s ease;
+
+        z-index: 1050;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE NAVIGATION LINKS
+       ----------------------------------------------------- */
+
+    .mobile-nav a {
+        display: block;
+
+        width: 100%;
+
+        padding: 20px 25px;
+
+        color: var(--text-main);
+
+        text-decoration: none;
+
+        font-size: 1rem;
+        font-weight: 500;
+
+        letter-spacing: 1px;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .mobile-nav a:first-child {
+        border-top: none;
+    }
+
+    .mobile-nav a:hover {
+        background: rgba(53, 157, 255, 0.08);
+        color: var(--accent-secondary);
+    }
+
+
+    /* -----------------------------------------------------
+       OPEN MOBILE MENU
+       ----------------------------------------------------- */
+
+    .mobile-nav.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+
+    /* -----------------------------------------------------
+       HAMBURGER → X
+       ----------------------------------------------------- */
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+
+    /* -----------------------------------------------------
+       HERO
+       ----------------------------------------------------- */
+
+    header.hero {
+        height: 85vh;
+        min-height: 600px;
+
+        /*
+         * Fixed backgrounds can behave poorly on phones.
+         */
+        background-attachment: scroll;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+        line-height: 1.05;
+        margin-bottom: 18px;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+
+    /* -----------------------------------------------------
+       BUTTONS
+       ----------------------------------------------------- */
+
+    .btn {
+        min-height: 52px;
+        padding: 15px 25px;
+    }
+
+
+    /* -----------------------------------------------------
+       SECTION TITLES
+       ----------------------------------------------------- */
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 45px;
+    }
+
+
+    /* -----------------------------------------------------
+       SERVICES
+       ----------------------------------------------------- */
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .service-card {
+        padding: 30px;
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY
+       ----------------------------------------------------- */
+
+    .gallery-container {
+        gap: 15px;
+        padding-bottom: 25px;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .gallery-item {
+        min-width: 82vw;
+        height: 250px;
+    }
+
+    /*
+     * Hover doesn't really exist on phones,
+     * so show gallery overlays automatically.
+     */
+    .gallery-overlay {
+        opacity: 1;
+    }
+
+    .gallery-item:hover img {
+        transform: none;
+    }
+
+
+    /* -----------------------------------------------------
+       CONTACT
+       ----------------------------------------------------- */
+
+    #contact {
+        padding: 70px 0;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .contact-info {
+        min-width: 0;
+    }
+
+    .contact-info h2 {
+        font-size: 2.2rem;
+        line-height: 1.1;
+    }
+
+    .contact-description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 30px;
+    }
+
+
+    /* -----------------------------------------------------
+       CONTACT DETAILS
+       ----------------------------------------------------- */
+
+    .contact-details {
+        gap: 12px;
+    }
+
+    .contact-item {
+        padding: 16px;
+        gap: 15px;
+    }
+
+    .contact-item:hover {
+        transform: none;
+    }
+
+    .contact-icon {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        font-size: 1rem;
+    }
+
+    .contact-item-text strong {
+        font-size: 0.85rem;
+    }
+
+    .contact-item-text span {
+        font-size: 0.9rem;
+    }
+
+
+    /* -----------------------------------------------------
+       CONTACT FORM
+       ----------------------------------------------------- */
+
+    .contact-form {
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+
+    /*
+     * 16px prevents Safari from zooming into form
+     * fields on iPhone.
+     */
+    .form-control {
+        padding: 17px 15px;
+        font-size: 16px;
+    }
+
+    textarea.form-control {
+        min-height: 140px;
+    }
+
+
+    /* -----------------------------------------------------
+       FORM SUCCESS / ERROR
+       ----------------------------------------------------- */
+
+    .form-success {
+        padding: 25px 10px;
+    }
+
+    .form-success h3 {
+        font-size: 1.4rem;
+    }
+
+    .form-success p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+
+    /* -----------------------------------------------------
+       FOOTER
+       ----------------------------------------------------- */
+
+    footer {
+        padding: 30px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .container {
+        padding: 0 15px;
+    }
+
+
+    /* -----------------------------------------------------
+       HERO
+       ----------------------------------------------------- */
+
+    header.hero {
+        min-height: 550px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+        line-height: 1.05;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+
+
+    /* -----------------------------------------------------
+       BUTTONS
+       ----------------------------------------------------- */
+
+    .btn {
+        width: 100%;
+        padding: 15px 20px;
+    }
+
+
+    /* -----------------------------------------------------
+       SECTION TITLES
+       ----------------------------------------------------- */
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+
+    /* -----------------------------------------------------
+       SERVICES
+       ----------------------------------------------------- */
+
+    .service-card {
+        padding: 25px;
+    }
+
+    .service-card h3 {
+        font-size: 1.3rem;
+    }
+
+
+    /* -----------------------------------------------------
+       GALLERY
+       ----------------------------------------------------- */
+
+    .gallery-item {
+        min-width: 86vw;
+        height: 230px;
+    }
+
+
+    /* -----------------------------------------------------
+       CONTACT
+       ----------------------------------------------------- */
+
+    .contact-info h2 {
+        font-size: 2rem;
+    }
+
+    .contact-form {
+        padding: 20px 15px;
+    }
+
+    .contact-item {
+        padding: 14px;
+    }
+
+
+    /* -----------------------------------------------------
+       FOOTER
+       ----------------------------------------------------- */
+
+    footer {
+        padding: 25px 15px;
+    }
+}
